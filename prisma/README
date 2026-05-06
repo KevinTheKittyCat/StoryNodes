@@ -1,0 +1,16 @@
+
+
+Run
+`npx prisma generate`
+to generate the models on change.
+
+You can split schemas specifically yourself - if you don't want them to be shared.
+You can create "frontend.schema.prisma"
+```
+generator client {
+  provider = "prisma-client-js"
+  output   = "../frontend/src/generated/prisma"
+}
+```
+
+This will create the models in "../frontend/src/generated/prisma" instead of shared.

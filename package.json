@@ -1,0 +1,13 @@
+{
+  "name": "js-fullstack",
+  "private": true,
+  "workspaces": [
+    "backend",
+    "frontend",
+    "prisma",
+    "shared"
+  ],
+  "scripts": {
+    "postinstall": "cd prisma && npm run generate"
+  }
+}
