@@ -23,3 +23,16 @@ body, html, #root {
         opacity: 0;
     }
 }
+
+.offset-circle:hover {
+    animation: outline-offset-hover 0.7s ease-out infinite alternate;
+}
+
+@keyframes outline-offset-hover {
+    0% {
+        outline-offset: -1px;
+    }
+    100% {
+        outline-offset: 4px;
+    }
+}

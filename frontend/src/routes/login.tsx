@@ -1,8 +1,7 @@
 import { Container, Heading, Image, Input, Text } from "@chakra-ui/react"
 import {
   Link as RouterLink,
-  createFileRoute,
-  redirect,
+  createFileRoute
 } from "@tanstack/react-router"
 import { type SubmitHandler, useForm } from "react-hook-form"
 import { FiLock, FiUser } from "react-icons/fi"
@@ -12,18 +11,18 @@ import { Button } from "@/components/ui/button"
 import { Field } from "@/components/ui/field"
 import { InputGroup } from "@/components/ui/input-group"
 import { PasswordInput } from "@/components/ui/password-input"
-import useAuth, { isLoggedIn } from "@/hooks/useAuth"
+import useAuth from "@/hooks/useAuth"
 import { emailPattern, passwordRules } from "../utils"
 
 export const Route = createFileRoute("/login")({
   component: Login,
-  beforeLoad: async () => {
+  /*beforeLoad: async () => {
     if (isLoggedIn()) {
       throw redirect({
         to: "/",
       })
     }
-  },
+  },*/
 })
 
 function Login() {
