@@ -1,13 +1,13 @@
 import { Combobox, Flex, ListCollection, useComboboxContext } from "@chakra-ui/react";
 import { JSX } from "react/jsx-runtime";
 
-export function CustomComboBox({ collection, render, prefix }: {
+export function CustomComboBox({ collection, render, prefix, ...props }: {
     collection: ListCollection<any>,
     render?: (item: any) => JSX.Element,
     prefix?: JSX.Element,
-}) {
+} & React.ComponentProps<typeof Combobox.Root>) {
     return (
-        <Combobox.Root size="sm" mb={2} collection={collection} >
+        <Combobox.Root size="sm" mb={2} collection={collection} {...props} >
             {/*<Combobox.Label />*/}
 
             <Combobox.Control>

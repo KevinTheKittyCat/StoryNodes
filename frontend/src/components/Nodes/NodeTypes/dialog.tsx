@@ -6,12 +6,16 @@ import { CharacterInput } from './Character';
 import { NodeColors } from './interface';
 import { CustomHandleStyles, CustomNode } from './node-builder';
 
-
+/*
+const incomers = getIncomers(
+  { id: '1', position: { x: 0, y: 0 }, data: { label: 'node' } },
+  nodes,
+  edges,
+);*/
 
 export function DialogOutput() {
     return (
         <Flex position={"relative"}>
-            <CharacterInput character={{ id: 'character1', name: 'Character 1' }} />
             <Handle
                 type="source"
                 position={Position.Right}
@@ -20,19 +24,20 @@ export function DialogOutput() {
                     background: NodeColors.dialog,
                 }}
                 className='offset-circle'
-
             />
         </Flex>
     )
 }
 
 export function DialogNode() {
+
     return (
-        <CustomNode.NodeRoot>
-            <CustomNode.NodeLabel style={{"--node-color": NodeColors.dialog}}>Dialog Node</CustomNode.NodeLabel>
-            <CustomNode.NodeContent>
+        <CustomNode.Root>
+            <CustomNode.Label style={{ "--node-color": NodeColors.dialog }}>Dialog Node</CustomNode.Label>
+            <CustomNode.Content>
                 <DialogOutput />
-            </CustomNode.NodeContent>
-        </CustomNode.NodeRoot>
+                <CharacterInput />
+            </CustomNode.Content>
+        </CustomNode.Root>
     );
 };
