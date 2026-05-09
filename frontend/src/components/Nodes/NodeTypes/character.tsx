@@ -38,19 +38,19 @@ export function CharacterOutput() {
     };
 
     return (
-        <Flex position={"relative"}>
+        <>
+            <CustomNode.Handle
+                dataType={NodeDataTypes.character}
+                type="source"
+                position={Position.Right}
+            />
             <CustomComboBox
                 collection={characters}
                 render={CharacterSelectItem}
                 onValueChange={onSelect}
                 value={data?.id ? [data.id] : []}
             />
-            <CustomNode.Handle
-                dataType={NodeDataTypes.character}
-                type="source"
-                position={Position.Right}
-            />
-        </Flex>
+        </>
     )
 }
 
@@ -100,7 +100,12 @@ export function CharacterInput() {
     const character = useMemo(() => charData ? charData.character : null, [data, updateTrigger]);
 
     return (
-        <Flex position={"relative"}>
+        <>
+            <CustomNode.Handle
+                dataType={NodeDataTypes.character}
+                type="target"
+                position={Position.Left}
+            />
             <Flex direction={"column"} gap={2} mb={2}>
                 {Array.isArray(character) ? character.map((char, index) => (
                     <CharacterInputRender key={index} character={char} />
@@ -108,13 +113,7 @@ export function CharacterInput() {
                     : <CharacterInputRender character={character} />
                 }
             </Flex>
-
-            <CustomNode.Handle
-                dataType={NodeDataTypes.character}
-                type="target"
-                position={Position.Left}
-            />
-        </Flex>
+        </>
     )
 }
 

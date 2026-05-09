@@ -4,13 +4,6 @@ import { useCallback, useMemo } from 'react';
 import { useNodeTreeStore } from '../Stores/nodeTree';
 import { nodeTypes } from './NodeTypes/interface';
 
-const initialNodes = [
-    { id: 'n1', type: 'character', position: { x: 0, y: 0 }, data: { label: 'Node 1' } },
-    { id: 'n2', type: 'dialog', position: { x: 0, y: 100 }, data: { label: 'Node 2' } },
-];
-const initialEdges = [{ id: 'n1-n2', source: 'character-output-1', target: 'character-output-6' }];
-
-
 export function FlowCanvas() {
     const edges = useNodeTreeStore((state) => state.edges);
     //const nodes = useNodeTreeStore((state) => state.nodes);
@@ -48,8 +41,8 @@ export function FlowCanvas() {
     );*/
     const onConnect = useCallback(
         (params) => {
-            console.log(params);
-            updateNodeInfo(params.source, { connections: params.target });
+            //console.log(params);
+            //updateNodeInfo(params.source, { connections: params.target });
             setEdges((edgesSnapshot) => addEdge(params, edgesSnapshot));
         },
         [],
