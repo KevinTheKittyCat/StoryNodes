@@ -107,9 +107,10 @@ export function CharacterInput() {
                 position={Position.Left}
             />
             <Flex direction={"column"} gap={2} mb={2}>
-                {Array.isArray(character) ? character.map((char, index) => (
-                    <CharacterInputRender key={index} character={char} />
-                ))
+                {Array.isArray(character) ?
+                    character.map((char, index) => (
+                        <CharacterInputRender key={index} character={char} />
+                    ))
                     : <CharacterInputRender character={character} />
                 }
             </Flex>

@@ -28,7 +28,9 @@
       "@ui/*": [
         "./src/ui/*"
       ]
-    }
+    },
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
   },
   "include": [
     "src/**/*.ts",
