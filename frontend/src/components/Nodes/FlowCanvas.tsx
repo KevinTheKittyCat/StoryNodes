@@ -2,7 +2,7 @@ import { addEdge, applyEdgeChanges, applyNodeChanges, Background, Controls, Reac
 import '@xyflow/react/dist/style.css';
 import { useCallback, useMemo } from 'react';
 import { useNodeTreeStore } from '../Stores/nodeTree';
-import { GameNode } from './Game nodes/interface';
+//import { GameNode } from './Game nodes/interface';
 import { nodeTypes } from './NodeTypes/interface';
 
 export function FlowCanvas() {
@@ -19,14 +19,14 @@ export function FlowCanvas() {
     //const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
 
     const newNodes = useMemo(() => Object.values(nodeInfo), [nodeInfo]);
-
+/*
     const test = new GameNode(
         undefined,
         "test",
         {}
     );
     console.log(test);
-
+*/
     const onNodesChange = useCallback(
         (changes) => {
             const newChanges = applyNodeChanges(changes, newNodes);

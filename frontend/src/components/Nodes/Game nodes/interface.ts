@@ -1,142 +1,39 @@
+import { Node as ReactFlowNode } from '@xyflow/react'; // or 'reactflow' depending on your version
+import { NodeDataTypes } from "../Nodes/NodeTypes/interface";
 
+type DATA_ID = string;
 
-
-
-
-/*
-"dialog-1": {
-            id: 'dialog-1',
-            type: 'dialog',
-            label: '',
-            position: { x: 0, y: 100 },
-            outputs: {
-                handles: {
-                    'dialog-output-1': {
-                        id: 'dialog-output-1',
-                        dataType: NodeDataTypes.dialog,
-                        label: 'Events',
-                        output: ["character", "somethingElseExample"]
-                    },
-                }
-            },
-            data: {
-                character: {
-                    handle: { //input
-                        id: 'character-output-6',
-                        dataType: NodeDataTypes.character,
-                    },
-                    get character() {
-*/
-
-
-/*
-@GameNode("Movement")
-export class PlayerController {
-    @Input() speed: number = 5;
-    @Output() onJump: EventEmitter;
-
-    update(delta: number) {
-        // Custom logic here
-    }
-}*/
-
-function randomUUID() {
-    // Simple UUID generator for demonstration purposes
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-        var r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
-        return v.toString(16);
-    }
-    );
-}
-
-export interface NodeInput {
+interface NodeInput {
     id: string;
-    dataType: string;
-    label?: string;
+    name: string;
+    type: string;
 }
 
-export interface NodeOutput {
+interface NodeOutput {
     id: string;
-    dataType: string;
-    label?: string;
-    output: string[]; //specifies what data is output, e.g. for character node it could be ["id", "name"]
+    name: string;
+    type: string;
+    output: string[]; 
 }
 
-export class NodeBase {
-    constructor(
-        public id: string = randomUUID(),
-        public type: string,
-        public data: any,
-        public inputs: { [key: string]: NodeInput } = {},
-        public outputs: { [key: string]: NodeOutput } = {},
-        public getOutputData: (handleId: string) => any = (handleId: string) => {
-            this.outputs[handleId]?.output.reduce((acc, key) => {
-                const splitKey = key.split('.');
-                const value = splitKey.reduce((obj, k) => obj?.[k], this.data);
-                acc[key] = value;
-                return acc;
-            }, {} as any);
-        }
-    ) { }
+interface FieldInput {
+    id: string; 
+    name: string;
+    type: string;
+    overrideBy?: NodeInput['id']; // Excellent pattern here!
+    valueId: string; 
 }
 
-/*
-function Log(
-    target: any,
-    propertyKey: string,
-    descriptor: PropertyDescriptor
-) {
-    const originalMethod = descriptor.value;
-    descriptor.value = function (...args: any[]) {
-        console.log(`Calling ${propertyKey} with`, args);
-        return originalMethod.apply(this, args);
-    };
-}
-*/
-
-
-/*
-function Field(
-    target: any,
-    propertyKey: string,
-    descriptor: PropertyDescriptor
-) {
-    const originalMethod = descriptor.value;
-    console.log(target, propertyKey, descriptor);
-    descriptor.value = function (...args: any[]) {
-        console.log(`Calling ${propertyKey} with`, args);
-        return originalMethod.apply(this, args);
-    };
-}
-    */
-
-function Field(
-    target: any,
-    propertyKey: string,
-    third: any
-) {
-    console.log(target, propertyKey, third, "field decorator");
-    console.log("Initial value:", target[propertyKey]);
+// 1. Define what lives inside the node's 'data' property
+export interface CustomNodeData {
+    label: string;
+    inputs: { [key: string]: NodeInput };
+    outputs: { [key: string]: NodeOutput };
+    fields: { [key: string]: FieldInput };
+    
+    // The reference ID to your second store (the actual game values)
+    valueReferenceId: DATA_ID; 
 }
 
-export class GameNode extends NodeBase {
-    //@Field
-    speed: number = 5;
-    get speeds() {
-        return this.speed;
-    }
-
-    constructor(
-        id: string | undefined,
-        type: string,
-        data: any,
-        inputs: { [key: string]: NodeInput } = {},
-        outputs: { [key: string]: NodeOutput } = {}
-    ) {
-        // Pass arguments individually to match NodeBase constructor
-        super(id, type, data, inputs, outputs);
-
-        console.log("Creating GameNode with speed:", this.speed);
-        this.speed = 10;
-    }
-}
+// 2. Extend the base React Flow Node with your custom data
+export type EngineNode = ReactFlowNode<CustomNodeData, NodeDataTypes | string>;
